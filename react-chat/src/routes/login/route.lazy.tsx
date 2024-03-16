@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link, createLazyFileRoute, useSearch, createFileRoute, getRouteApi } from "@tanstack/react-router";
+import { Link, createLazyFileRoute } from "@tanstack/react-router";
 import z from "zod";
 import { useNavigate } from "@tanstack/react-router";
 import AuthContainer from "@/components/auth-container";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { WEBAPP_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ErrorCode } from "@/lib/errorcode";
 import { Alert } from "@/components/ui/alert";
 import { EmailField, PasswordField } from "@/components/form/form-input";
 import { pb } from "@/lib/pocketbase";
 
-const routeApi = getRouteApi("/login");
+// const routeApi = getRouteApi("/login");
 
 export const Route = createLazyFileRoute("/login")({
   component: Login,
@@ -32,11 +31,11 @@ const LoginFooter = (
 );
 
 export default function Login() {
-  const routeSearch = routeApi.useSearch();
+  // const routeSearch = routeApi.useSearch();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const callbackUrl = routeSearch.callbackUrl || "/";
+  // const callbackUrl = routeSearch.callbackUrl || "/";
   const formSchema = z
     .object({
       email: z.string().min(1, `${"error_required_field"}`).email(`${"enter_valid_email"}`),
@@ -59,7 +58,7 @@ export default function Login() {
     setErrorMessage(null);
     try {
       // telemetry.event(telemetryEventTypes.login, collectPageParameters());
-      const res = await pb.collection("users").authWithPassword(values.email, values.password);
+      await pb.collection("users").authWithPassword(values.email, values.password);
 
       // not verified
       navigate({ to: "/main" });

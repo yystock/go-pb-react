@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageItem } from "@/lib/types";
 import { RandomAvatar } from "react-random-avatars";
 

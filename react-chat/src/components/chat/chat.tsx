@@ -1,26 +1,20 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { MessageItem } from "@/lib/types";
 import Sidebar from "@/components/chat/chat-sidebar";
 import MessagesList from "@/components/chat/chat-list";
 import { usePocket } from "@/providers/PocketbaseProvider";
 import ChatHeader from "./chat-header";
-import { TopicsRecord, TopicsResponse, UsersResponse } from "@/lib/types/pocketbase-types";
+import { TopicsResponse } from "@/lib/types/pocketbase-types";
 import { toast } from "sonner";
 import { useGuest } from "@/hooks/useGuest";
 
 interface ChatComponentProps {
   topicId: string;
 }
-type key = {
-  members: string;
-};
-type membersType = {
-  user: UsersResponse;
-};
 export default function ChatComponent({ topicId }: ChatComponentProps) {
   const [members, setMembers] = useState<string[]>([]);
   const [topic, setTopic] = useState<string>("");
-  const [target, setTarget] = useState<string>("");
+  // const [target, setTarget] = useState<string>("");
   const [messages, setMessages] = useState<MessageItem[]>([]);
   const { pb, user } = usePocket();
   const { guest } = useGuest();
@@ -45,7 +39,7 @@ export default function ChatComponent({ topicId }: ChatComponentProps) {
   const sendMessage = useCallback(async (value: string) => {
     if (!value) return;
     try {
-      const insertedMessage = await pb.collection("messages").create({
+      await pb.collection("messages").create({
         content: value,
         userId: user ? user.id : guest.id,
         topicId: topicId,

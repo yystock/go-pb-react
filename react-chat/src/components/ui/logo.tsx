@@ -1,18 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export default function Logo({
-  small,
-  icon,
-  inline = true,
-  className,
-  src = "",
-}: {
-  small?: boolean;
-  icon?: boolean;
-  inline?: boolean;
-  className?: string;
-  src?: string;
-}) {
+export default function Logo({ small, icon, inline = true, className }: { small?: boolean; icon?: boolean; inline?: boolean; className?: string }) {
   return (
     <h3 className={cn("logo", inline && "inline", className)}>
       <strong>

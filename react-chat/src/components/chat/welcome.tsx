@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { uniqueNamesGenerator, Config, adjectives, colors, animals } from "unique-names-generator";
+import { uniqueNamesGenerator, adjectives, colors, animals } from "unique-names-generator";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -30,7 +30,7 @@ export default function Welcome({ setIsMember, topic }: WelcomeProps) {
     }
     try {
       if (user) {
-        const req = await pb.send("/api/jointopic", { method: "PUT", body: JSON.stringify({ topicId: topic.id }) });
+        await pb.send("/api/jointopic", { method: "PUT", body: JSON.stringify({ topicId: topic.id }) });
         // const res = await pb.collection("topics").update(topic.id, { members: [...topic.members, user.id] });
       }
 
@@ -38,7 +38,7 @@ export default function Welcome({ setIsMember, topic }: WelcomeProps) {
         const insertRandomUser = await pb.collection("users").create({ password: "12345678", passwordConfirm: "12345678", name: nicknameValue });
 
         //const req = await pb.send("/api/jointopic", { method: "PUT", body: JSON.stringify({ topicId: topic.id }) });
-        const res = await pb.collection("topics").update(topic.id, { members: [...topic.members, insertRandomUser.id] });
+        await pb.collection("topics").update(topic.id, { members: [...topic.members, insertRandomUser.id] });
 
         setGuest(insertRandomUser.id, insertRandomUser.name);
       }

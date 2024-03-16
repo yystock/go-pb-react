@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { usePocket } from "@/providers/PocketbaseProvider";
 import { toast } from "sonner";
-import { TopicsRecord } from "@/lib/types/pocketbase-types";
 import ChatComponent from "@/components/chat/chat";
 import Welcome from "@/components/chat/welcome";
 import { RecordModel } from "pocketbase";

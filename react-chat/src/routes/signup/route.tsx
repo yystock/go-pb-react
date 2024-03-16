@@ -1,6 +1,5 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, createFileRoute, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
@@ -9,7 +8,6 @@ import { cn } from "@/lib/utils";
 import { PasswordField } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Alert } from "@/components/common/alert";
 import { WEBAPP_URL } from "@/lib/constants";
 import { isPasswordValid } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -45,7 +43,7 @@ export const Route = createFileRoute("/signup")({
 function SignUp() {
   const navigate = useNavigate();
   const { pb } = usePocket();
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  // const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const form = useForm<z.infer<typeof signupSchema>>({
     mode: "onChange",
     resolver: zodResolver(signupSchema),
@@ -56,10 +54,10 @@ function SignUp() {
 
   const {
     register,
-    watch,
-    formState: { isSubmitting, errors, isSubmitSuccessful },
+
+    formState: { isSubmitting },
   } = form;
-  const loadingSubmitState = isSubmitting || isGoogleLoading;
+  const loadingSubmitState = isSubmitting;
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signupSchema>) {
@@ -74,7 +72,7 @@ function SignUp() {
       name: values.username,
     };
     try {
-      const record = await pb.collection("users").create(data);
+      await pb.collection("users").create(data);
       toast.success("Account created successfully");
       navigate({ to: "/login" });
     } catch (e) {

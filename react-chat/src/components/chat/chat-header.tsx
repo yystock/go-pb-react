@@ -1,4 +1,3 @@
-import React from "react";
 import { RandomAvatar } from "react-random-avatars";
 
 export default function ChatHeader({ name }: { name: string }) {

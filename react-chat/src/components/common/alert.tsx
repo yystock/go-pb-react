@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { forwardRef } from "react";
 import { LucideIcon } from "lucide-react";
-import { CheckCircle2, Info, XCircle, AlertTriangle, LucideProps } from "lucide-react";
+import { CheckCircle2, Info, XCircle, AlertTriangle } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 

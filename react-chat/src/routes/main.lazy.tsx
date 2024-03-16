@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePocket } from "@/providers/PocketbaseProvider";
 import { Separator } from "@/components/ui/separator";
 import { createLazyFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import * as z from "zod";
 
@@ -46,7 +45,7 @@ function Main() {
   const joinTopic = async () => {
     if (!topicId) return;
     try {
-      const record = await pb.collection("topics").getOne(topicId);
+      await pb.collection("topics").getOne(topicId);
       toast.success("Topic joined");
       setName("");
       setTopicId("");
