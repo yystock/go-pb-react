@@ -4,6 +4,7 @@ import "../global.css";
 import { PocketProvider } from "@/providers/PocketbaseProvider";
 import Navigation from "@/components/navigation";
 import { Toaster } from "@/components/ui/sonner";
+import { IS_DEV } from "@/lib/constants";
 export const Route = createRootRoute({
   component: () => (
     <>
@@ -13,7 +14,7 @@ export const Route = createRootRoute({
 
         <Outlet />
         <Toaster />
-        <TanStackRouterDevtools />
+        {IS_DEV && <TanStackRouterDevtools />}
       </PocketProvider>
     </>
   ),
